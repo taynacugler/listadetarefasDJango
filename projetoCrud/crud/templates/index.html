@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TO DO LIST</title>
+</head>
+<body>
+<div class="container">
+<div class="listaTarefas">
+        <h1>Lista de Tarefas </h1>
+        <ul>
+            {% for tarefa in tarefas %}
+                <li>{{ tarefa.nome }}
+                    <a href="{% url 'updateTarefa' tarefa.id %}"> Editar</a>
+                     <a href="{% url 'delete' tarefa.id %}"> Deletar</a>
+                </li>
+                {% empty %}
+                <li>Não existe nenhuma Tarefa ainda!</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="createTarefa">
+        <h2>Adicione uma nova tarefa!</h2>
+                <div class="forms">
+                    <form action="{% url 'createTarefa' %}" method="post">
+                        {% csrf_token %}
+                        <h3>Nome da tarefa:</h3>
+                        <input type="text" name="nome">
+                        <button type="submit">Criar</button>
+                    </form>
+                </div>
+                <div class="errorMsg">
+                    {% if mensagem_erro %}
+                    <p class="text-danger">{{ mensagem_erro }}</p>
+                    {% endif %}
+            </div>
+        </div>
+</div>
+
+</body>
+</html>
