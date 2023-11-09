@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Tarefas
+from .models import Tarefas, checkedTarefas
 
 # Create your views here.
-def getTarefas (request):
+def getTarefas(request):
     tarefas = Tarefas.objects.all()
-    return render(request, "index.html", {"tarefas": tarefas})
+    tarefas_concluidas = checkedTarefas.objects.all()
+    return render(request, "index.html", {"tarefas": tarefas, "tarefas_concluidas": tarefas_concluidas})
 
 def createTarefa(request):
     nome = request.POST.get("nome")
@@ -35,3 +36,11 @@ def delete (request, id):
     tarefas = Tarefas.objects.get(id=id)
     tarefas.delete()
     return redirect (getTarefas)
+
+def checkedTarefa (request, id):
+        tarefa = Tarefas.objects.get(id=id)
+        checkedTarefas.objects.create(nome=tarefa.nome)    
+        tarefa.delete()
+        return redirect (getTarefas)
+
+
