@@ -18,8 +18,10 @@ def createTarefa(request):
     else:
         mensagem_erro = "Nome não pode ser vazio."
 
-    tarefas = Tarefas.objects.all() 
-    return render(request, "index.html", {"tarefas": tarefas, "mensagem_erro": mensagem_erro})
+    tarefas = Tarefas.objects.all()
+    tarefas_concluidas = checkedTarefas.objects.all()
+    
+    return render(request, "index.html", {"tarefas": tarefas, "tarefas_concluidas": tarefas_concluidas, "mensagem_erro": mensagem_erro})
 
 def updateTarefa (request, id):
     tarefas = Tarefas.objects.get(id=id)
@@ -37,10 +39,14 @@ def delete (request, id):
     tarefas.delete()
     return redirect (getTarefas)
 
-def checkedTarefa (request, id):
-        tarefa = Tarefas.objects.get(id=id)
-        checkedTarefas.objects.create(nome=tarefa.nome)    
-        tarefa.delete()
-        return redirect (getTarefas)
+def checkedTarefa(request, id):
+    tarefa = Tarefas.objects.get(id=id)
+    checkedTarefas.objects.create(nome=tarefa.nome)
+    tarefa.delete()
+    
+    tarefas = Tarefas.objects.all()
+    tarefas_concluidas = checkedTarefas.objects.all()
+
+    return render(request, "index.html", {"tarefas": tarefas, "tarefas_concluidas": tarefas_concluidas})
 
 
