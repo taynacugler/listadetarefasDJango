@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>TO DO LIST</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Space+Mono:ital@1&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -24,13 +27,15 @@
         </ul>
     </div>
     <div class="createTarefa">
-        <h2>Adicione uma nova tarefa!</h2>
+        
                 <div class="forms">
+                    <h2>Adicione uma nova tarefa!</h2>
                     <form action="{% url 'createTarefa' %}" method="post">
                         {% csrf_token %}
                         <h3>Nome da tarefa:</h3>
                         <input type="text" name="nome">
                         <button type="submit">Criar</button>
+                                                
                     </form>
                 </div>
                 <div class="errorMsg">
@@ -39,7 +44,8 @@
                     {% endif %}
             </div>
         </div>
-        <div>
+        
+        <div class="checkedTarefas">
             <h1>Tarefas Concluídas</h1>
 <ul>
     {% for tarefa_concluida in tarefas_concluidas %}
@@ -48,107 +54,30 @@
         <li>Nenhuma tarefa concluída ainda!</li>
     {% endfor %}
 </ul>
-        </div>
+</div>
 </div>
 <style>
-     body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+body {
 
-        .container {
-            width: 80%;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-    .listaTarefas {
-        margin-bottom: 20px;
-    }
-
-    h1 {
-        color: #333;
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    li {
-        margin-bottom: 10px;
-    }
-
-    a {
-        text-decoration: none;
-        color: #3498db;
-        margin-right: 10px;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    form {
-        display: inline;
-    }
-
-    .createTarefa {
-        margin-bottom: 20px;
-    }
-
-    h2 {
-        color: #333;
-    }
-
-    .forms {
-        margin-top: 10px;
-    }
-
-    input {
-        padding: 5px;
-        margin-right: 10px;
-    }
-
-    button {
-        padding: 5px 10px;
-        background-color: #3498db;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #2980b9;
-    }
-
-    .errorMsg {
-        margin-top: 10px;
-    }
-
-    .text-danger {
-        color: #e74c3c;
-    }
-
-    h1, h2, h3 {
-        margin-bottom: 10px;
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    li {
-        margin-bottom: 10px;
-    }
+background-color: rgb(248, 240, 228);
+}
+.container {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: center;
+}
+.checkedTarefas, .listaTarefas {
+    margin: 3em;
+    height: 400px;
+ 
+    
+}
+.createTarefas {
+    display: flex;
+    margin: 3em;
+    height: 600px;
+}
 </style>
 
 </body>
